@@ -15,9 +15,11 @@ A breakdown of the performance in each implementation is provided below.
 ### Scikit-Learn
 - The codes available in [this directory](https://github.com/kartika-nair/ImageProcessing-COMP6235/tree/main/Image%20Cleaning%20-%20Scikit-Learn) contain the implementation of the aforementioned cleaning methods in Scikit-Learn.
 - The predictions were done via an CNN, which performed greatly on CIFAR-10.
-  
 - For MNIST, MinMaxScaler provides the best performance. Raw data without preprocessing also performs decently due to the simplicity of the dataset. PCA, though useful for dimensionality reduction, shows lower performance as it eliminates some important features for classification.
+   <img width="1018" height="983" alt="image" src="https://github.com/user-attachments/assets/94771e07-9e3c-4797-91ab-9da0417e9a48" />
+
 - For CIFAR-10, StandardScaler,QuantileTransformer and MinMaxScaler offer modest improvements, but PCA fail to provide significant benefits, with PCA reducing performance dramatically due to the loss of important spatial information in the images. Raw pixel data (after normalization) performs good, as the CNN model benefits from the full, unaltered image data.
+  <img width="1001" height="983" alt="image" src="https://github.com/user-attachments/assets/915088eb-3196-4341-a95f-39d43045cd3f" />
 
 ### OpenCV
 - The codes available in [this directory](https://github.com/kartika-nair/ImageProcessing-COMP6235/tree/main/Image%20Cleaning%20-%20OpenCV) contain the implementation of the aforementioned cleaning methods in OpenCV.
