@@ -1,0 +1,15 @@
+In the research, the data enrichment is applied to 2 built-in datasets: MNIST, and CIFAR-10. 
+The data enrichment method used in this research are no processing, rotation, scaling, translation, noise, blur. The OpenCV is a traditional tool without smart augmentation like TensorFlow.
+No processing: no enrichment is used in the image data.
+Rotation: rotate the MNIST image fixedly by 25 degrees and use BORDER_REPLICATE to replicate the edge pixels to fill in the blanks.
+Translation: pan the image by +3 pixels (lower right)
+Scaling: randomly scale to 0.9× to 1.2×
+Noise: add Gaussian noise of random size (σ=5 to 20)
+Blur: use a 5×5 Gaussian filter
+
+1.	For MNIST (cleaned by PCA via OpenCV)
+Firstly, it is indicated that the improvement of accuracy through enrichment is slight, as the MNIST is too simple to increase. In addition, the handwritten number can be prone to distortion because of excessive rotation or translation, and the images would deviate from their original structure, making them more difficult to recognize. 
+
+2.	For CIFAR-10 (cleaned by Standard Scaling via OpenCV)
+A slight rotation enables the images in the cigar model to be seen from other angles without overly damaging the structure. But the model is too small and the improvement is not obvious. Translation may disrupt the "center alignment structure" of CIFAR-10, moving the important content at the center of the image out of it, thereby causing the model to learn poor features and affecting the accuracy.
+CIFAR-10 model has a low resolution, so the scaling and blur will weaken the texture and destroy the improvement of accuracy. Besides, the addition of noise makes distinguish difficult so that stable features could not be studied.
