@@ -1,0 +1,19 @@
+# --- 1. 忽略大型原始数据 (data.ipynb 的输入) ---
+data/
+*/data/
+
+# --- 2. 忽略整合后的二进制矩阵与模型权重 (npy/pth 大文件) ---
+# 这些文件由代码生成，不需要上传，他人运行代码即可重新生成
+*.npy
+*.pth
+*/output/
+
+# --- 3. 忽略 IDE 缓存与临时文件 ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+__pycache__/
+废稿/
+
+# --- 4. 允许上传的文件类型 ---
+# 确保结果图片能够显示在 README 中
+!final_comparison.png
