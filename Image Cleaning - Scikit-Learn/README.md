@@ -26,7 +26,7 @@ The five datasets involved in this comparison, along with some relevant details 
 ## Results and Analysis
 
 ### MNIST
-<img width="700" height="600" alt="image" src="https://github.com/user-attachments/assets/4d4c655d-a974-4c7c-b9e9-a79efb0ae69f" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/4d4c655d-a974-4c7c-b9e9-a79efb0ae69f" />
 
 The MNIST dataset was evaluated using Logistic Regression as the classification model. The dataset consists of grayscale images of handwritten digits (0-9).
 
@@ -40,7 +40,7 @@ The MNIST dataset was evaluated using Logistic Regression as the classification 
 For MNIST, MinMaxScaler provides the best performance. Raw data without preprocessing also performs decently due to the simplicity of the dataset. PCA, though useful for dimensionality reduction, shows lower performance as it eliminates some important features for classification.
 
 ### CIFAR-10
-<img width="700" height="600" alt="image" src="https://github.com/user-attachments/assets/42823f09-cbf2-4623-9b69-49b937a4b909" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/42823f09-cbf2-4623-9b69-49b937a4b909" />
 
 The CIFAR-10 dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of RGB images of 10 different object classes.
 
@@ -54,7 +54,7 @@ The CIFAR-10 dataset was evaluated using a Convolutional Neural Network (CNN) as
 For CIFAR-10, StandardScaler, QuantileTransformer, and MinMaxScaler offer modest improvements, but PCA fails to provide significant benefits, with PCA reducing performance dramatically due to the loss of important spatial information in the images. Raw pixel data (after normalization) performs well, as the CNN model benefits from the full, unaltered image data.
 
 ### Fashion-MNIST
-<img width="700" height="600" alt="image" src="https://github.com/user-attachments/assets/e4eb9762-d15e-4f45-9330-8f8a4955c6a3" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/e4eb9762-d15e-4f45-9330-8f8a4955c6a3" />
 
 The Fashion-MNIST dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of grayscale images of clothing items (10 classes).
 
@@ -69,7 +69,7 @@ The Fashion-MNIST dataset was evaluated using a Convolutional Neural Network (CN
 For Fashion-MNIST with CNNs, either use raw normalized data (dividing by 255.0) or apply StandardScaler/MinMaxScaler for modest improvements. The choice of preprocessing is less critical than for simpler models, as CNNs can effectively learn from both raw and preprocessed data. Avoid PCA as it significantly reduces performance.
 
 ### SVHN
-<img width="700" height="600" alt="image" src="https://github.com/user-attachments/assets/bdce1575-34f9-42f2-8e46-95258e1408ed" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/bdce1575-34f9-42f2-8e46-95258e1408ed" />
 
 The SVHN (Street View House Numbers) dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of RGB images of street view house numbers (10 classes). Due to the large dataset size (600,000+ samples), a subset of 30,000 training samples and 5,000 test samples was used with memory-efficient batch processing.
 
@@ -85,7 +85,7 @@ The SVHN (Street View House Numbers) dataset was evaluated using a Convolutional
 For SVHN with CNNs, use either raw normalized data or StandardScaler. Both methods typically yield similar results, so raw normalization is often preferred for simplicity and computational efficiency. Memory-efficient batch processing was essential due to the large dataset size. Avoid PCA as it significantly reduces classification accuracy.
 
 ### STL-10
-<img width="700" height="600" alt="image" src="https://github.com/user-attachments/assets/294e648d-2b4c-4e09-a93b-743ab79602c0" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/294e648d-2b4c-4e09-a93b-743ab79602c0" />
 
 The STL-10 dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of RGB images of natural objects (10 classes) with higher resolution (96×96) than CIFAR-10. Due to the large feature space (27,648 features per image), a subset of 3,000 training samples and 1,500 test samples was used with memory-efficient batch processing.
 
