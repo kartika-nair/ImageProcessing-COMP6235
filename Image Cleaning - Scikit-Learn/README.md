@@ -26,6 +26,7 @@ The five datasets involved in this comparison, along with some relevant details 
 ## Results and Analysis
 
 ### MNIST
+<img width="1018" height="983" alt="image" src="https://github.com/user-attachments/assets/4d4c655d-a974-4c7c-b9e9-a79efb0ae69f" />
 
 The MNIST dataset was evaluated using Logistic Regression as the classification model. The dataset consists of grayscale images of handwritten digits (0-9).
 
@@ -39,6 +40,7 @@ The MNIST dataset was evaluated using Logistic Regression as the classification 
 For MNIST, MinMaxScaler provides the best performance. Raw data without preprocessing also performs decently due to the simplicity of the dataset. PCA, though useful for dimensionality reduction, shows lower performance as it eliminates some important features for classification.
 
 ### CIFAR-10
+<img width="1001" height="983" alt="image" src="https://github.com/user-attachments/assets/42823f09-cbf2-4623-9b69-49b937a4b909" />
 
 The CIFAR-10 dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of RGB images of 10 different object classes.
 
@@ -52,6 +54,7 @@ The CIFAR-10 dataset was evaluated using a Convolutional Neural Network (CNN) as
 For CIFAR-10, StandardScaler, QuantileTransformer, and MinMaxScaler offer modest improvements, but PCA fails to provide significant benefits, with PCA reducing performance dramatically due to the loss of important spatial information in the images. Raw pixel data (after normalization) performs well, as the CNN model benefits from the full, unaltered image data.
 
 ### Fashion-MNIST
+<img width="1010" height="983" alt="image" src="https://github.com/user-attachments/assets/e4eb9762-d15e-4f45-9330-8f8a4955c6a3" />
 
 The Fashion-MNIST dataset was evaluated using a Convolutional Neural Network (CNN) as the classification model. The dataset consists of grayscale images of clothing items (10 classes).
 
