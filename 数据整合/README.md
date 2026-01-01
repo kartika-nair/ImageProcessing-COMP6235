@@ -82,7 +82,8 @@ The operation log shows that Pillow demonstrates an approximately 20-fold advant
 
 Different Resampling Algorithms will change the pixel features of the image. By comparing the magnified effect of low-resolution images, we can observe whether there is a phenomenon of "Aliasing" or "Blurring".
 
-![quality_comparison](/Users/cumulus7/quality_comparison.png)
+<img width="4500" height="1500" alt="quality_comparison" src="https://github.com/user-attachments/assets/80fb9b17-0f90-4d87-926a-69b2aeedbe00" />
+
 
 When Pillow was handling the USPS (16×16) upsampling task, obvious Pixelation and Aliasing appeared at the image edges. The image edges processed by Scikit-image are very Smooth, high-frequency noise is effectively suppressed, but visually it appears slightly blurry.
 
@@ -106,7 +107,8 @@ The correlation coefficient is close to 1.0, indicating that both have successfu
 
   The Loss decline curves of the two highly overlap, indicating that the basic Z-Score normalization (mean/standard deviation alignment) is more capable of determining the convergence trend of the model than the scaling algorithm itself.
 
-  ![final_comparison](/Users/cumulus7/Downloads/ds上学期/6235_CW3/数据清洗/final_comparison.png)
+<img width="4200" height="1800" alt="final_comparison" src="https://github.com/user-attachments/assets/b345c933-d257-4586-9925-8e0b9fcad70b" />
+
 
 ## Conclusion
 
