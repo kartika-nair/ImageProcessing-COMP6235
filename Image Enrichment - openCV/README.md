@@ -150,3 +150,10 @@ SVHN exhibits high suitability for selective OpenCV augmentation, particularly n
 **Conclusion**
 
 STL-10 shows moderate to high augmentation suitability, despite overall accuracy being constrained by model capacity.
+
+### **Overall Discussion**
+
+- **Dataset complexity strongly influences augmentation effectiveness**
+- **Augmentations must reflect realistic data variations**
+- **Model architecture limits achievable gains**
+- **Selective augmentation is superior to blanket application**
