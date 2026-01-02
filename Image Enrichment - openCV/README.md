@@ -151,6 +151,16 @@ SVHN exhibits high suitability for selective OpenCV augmentation, particularly n
 
 STL-10 shows moderate to high augmentation suitability, despite overall accuracy being constrained by model capacity.
 
+### **Cross-Dataset Enrichment Suitability Summary**
+
+| **Dataset** | **Baseline Accuracy (No Processing)** | **Best Augmentation Method** | **Best Accuracy** | **Average ΔAcc (%)** | **Overall Suitability** |
+|------------|---------------------------------------|------------------------------|-------------------|----------------------|-------------------------|
+| **MNIST** | 0.964 | Noise | 0.965 | −0.4% | Very Low |
+| **FashionMNIST** | 0.840 | Scaling | 0.831 | −0.6% | Low |
+| **CIFAR-10** | 0.372 | Rotation | 0.380 | +0.2% | Moderate |
+| **SVHN (PCA Cleaned)** | 0.694 | Blur | 0.701 | +0.5% | High (Selective) |
+| **STL-10 (Standard Scaling)** | 0.151 | Scaling | 0.205 | +1.5% | Moderate–High |
+
 ### **Overall Discussion**
 
 - **Dataset complexity strongly influences augmentation effectiveness**
