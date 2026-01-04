@@ -16,49 +16,58 @@
   - RandAugment — **Method 7**
 
 
-### Evaluation Remark Standard
+### Evaluation Standard (Baseline-aware, Complete Version)
 
-> The evaluation remark is assigned strictly based on validation accuracy
-> comparison among three values:
-> **Baseline**, **Best Level-1**, and **Best Level-2**.
->  
-> No average values, trends, or subjective interpretations are used.
+The evaluation is based on validation accuracy, using the baseline (no augmentation)
+as the primary reference.
+Comparison between Level-1 (L1) and Level-2 (L2) methods is secondary.
 
-- **L2 Best**  
-  - Condition:  
-    **Best L2 accuracy > Best L1 accuracy**
-  - Interpretation:  
-    TensorFlow-based augmentation achieves the best performance on this dataset.
+- **L2 Best**
+  - Condition:
+    Best Level-2 accuracy > Best Level-1 accuracy
+    and Best Level-2 accuracy > Baseline.
+  - Meaning:
+    TensorFlow-based augmentation achieves the best overall performance.
 
-- **L2 Helpful**  
-  - Condition:  
-    **Best L2 accuracy > Baseline**  
-    and  
-    **Best L2 accuracy ≤ Best L1 accuracy**
-  - Interpretation:  
-    TensorFlow-based augmentation improves over no augmentation,
-    but does not surpass the best geometric method.
+- **L1 Best (L2 Strong Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy shows a clear and non-trivial improvement over Baseline.
+  - Meaning:
+    Geometric augmentation is optimal, while TensorFlow-based augmentation
+    provides strong and meaningful gains.
 
-- **L1 Best**  
-  - Condition:  
-    **Best L1 accuracy > Best L2 accuracy**
-  - Interpretation:  
-    OpenCV-style geometric augmentation is more effective on this dataset.
+- **L1 Best (L2 Limited Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy shows only a small but positive improvement over Baseline.
+  - Meaning:
+    Geometric augmentation is clearly superior, and TensorFlow-based augmentation
+    provides limited benefit.
 
-- **No Clear Gain**  
-  - Condition:  
-    Neither **Best L1** nor **Best L2** shows a meaningful improvement over **Baseline**.
-  - Interpretation:  
-    Data augmentation does not provide a clear benefit under this setting.
+- **L1 Best (L2 No Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy does not improve over Baseline
+    or results in performance degradation.
+  - Meaning:
+    Geometric augmentation is effective, while TensorFlow-based augmentation
+    is ineffective or harmful in this setting.
+
+- **No Clear Gain**
+  - Condition:
+    Neither Best Level-1 nor Best Level-2 shows a meaningful improvement over Baseline.
+  - Meaning:
+    Data augmentation provides no clear benefit under this setting.
 
 
-| Dataset | Baseline Acc | L1 Avg ΔAcc | L2 Avg ΔAcc | Best Method (Overall) | Best Acc | Δ vs Baseline (pp) | Evaluation |
-|---|---:|---:|---:|---|---:|---:|---|
-| MNIST | 0.9894 | +0.20% | +0.03% | MixUp (L2) | 0.9920 | +0.26 | L2 Best |
-| Fashion-MNIST | 0.9118 | −0.89% | −0.16% | CutMix (L2) | 0.9197 | +0.79 | L2 Best |
-| CIFAR-10 | 0.6940 | +0.81% | +0.74% | Translation (L1) | 0.7362 | +4.22 | L1 Best |
-| SVHN | 0.8969 | +1.10% | +0.80% | Translation (L1) | 0.9251 | +2.82 | L1 Best |
-| STL-10 | 0.6215 | +3.69% | −0.29% | Translation (L1) | 0.6881 | +6.66 | L1 Best |
+| Dataset | Dataset Feature Phrase | Baseline Acc | Best L1 (Δ vs Baseline, pp) | Best L2 (Δ vs Baseline, pp) | Best Method (Overall) | Evaluation |
+|---|---|---:|---|---|---|---|
+| MNIST | Simple structure | 0.9894 | Geom-Combined (+0.25) | MixUp (+0.26) | MixUp (L2) | L2 Best (Limited Improvement) |
+| Fashion-MNIST | Ambiguous class boundaries | 0.9118 | Translation (+0.21) | CutMix (+0.79) | CutMix (L2) | L2 Best |
+| CIFAR-10 | Position variability in natural scenes | 0.6940 | Translation (+4.22) | MixUp (+1.88) | Translation (L1) | L1 Best (L2 Strong Improvement) |
+| SVHN | Structure-sensitive labels | 0.8969 | Translation (+2.82) | CutMix (+1.16) | Translation (L1) | L1 Best (L2 Strong Improvement) |
+| STL-10 | Objects with varying positions, orientations, and scales | 0.6215 | Translation (+6.66) | RandAugment (+0.50) | Translation (L1) | L1 Best (L2 Limited Improvement) |
 
 
 
