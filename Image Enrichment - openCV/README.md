@@ -1,169 +1,76 @@
-## **Data Enrichment - OpenCV**
+### Method Definition
 
-This is the overview of the performance of data enrichment via OpenCV in these 5 datasets： 
-- CIFAR-10
-- MNIST
-- STL10
-- SVHN
-- fashionMNIST
+- **Baseline**
+  - No augmentation  
+  - **Method 0**
 
-All datasets are tested using the same six augmentation strategies:
-- No Processing
-- Rotation
-- Translation
-- Scaling
-- Noise
-- Blur
+- **Level 1 (L1, OpenCV-style geometric augmentation)**
+  - RandomRotation — **Method 1**
+  - RandomTranslation — **Method 2**
+  - RandomZoom — **Method 3**
+  - Geometric-Combined (Rotation + Translation + Zoom) — **Method 4**
 
-Each dataset is analysed under its best-performing cleaning strategy (e.g. PCA or Standard Scaling), determined in earlier experiments.
+- **Level 2 (L2, TensorFlow-based augmentation)**
+  - MixUp — **Method 5**
+  - CutMix — **Method 6**
+  - RandAugment — **Method 7**
 
-## **Analysis of Enrichment Suitability via OpenCV**
 
-### **Suitability Metric**
+### Evaluation Standard (Baseline-aware, Complete Version)
 
-Augmentation suitability is quantified using the change in test accuracy relative to the No Processing baseline.
+The evaluation is based on validation accuracy, using the baseline (no augmentation)
+as the primary reference.
+Comparison between Level-1 (L1) and Level-2 (L2) methods is secondary.
 
-Let:
+- **L2 Best**
+  - Condition:
+    Best Level-2 accuracy > Best Level-1 accuracy
+    and Best Level-2 accuracy > Baseline.
+  - Meaning:
+    TensorFlow-based augmentation achieves the best overall performance.
 
-- Acc_none = test accuracy without augmentation
-- Acc_aug = test accuracy after augmentation
-  
-The performance difference is defined as:
+- **L1 Best (L2 Strong Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy shows a clear and non-trivial improvement over Baseline.
+  - Meaning:
+    Geometric augmentation is optimal, while TensorFlow-based augmentation
+    provides strong and meaningful gains.
 
-- ΔAcc = Acc_aug − Acc_none
+- **L1 Best (L2 Limited Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy shows only a small but positive improvement over Baseline.
+  - Meaning:
+    Geometric augmentation is clearly superior, and TensorFlow-based augmentation
+    provides limited benefit.
 
-Positive and stable ΔAcc values indicate higher suitability for OpenCV-based augmentation.
+- **L1 Best (L2 No Improvement)**
+  - Condition:
+    Best Level-1 accuracy > Best Level-2 accuracy,
+    and Best Level-2 accuracy does not improve over Baseline
+    or results in performance degradation.
+  - Meaning:
+    Geometric augmentation is effective, while TensorFlow-based augmentation
+    is ineffective or harmful in this setting.
 
-### **MNIST**
+- **No Clear Gain**
+  - Condition:
+    Neither Best Level-1 nor Best Level-2 shows a meaningful improvement over Baseline.
+  - Meaning:
+    Data augmentation provides no clear benefit under this setting.
 
-**Test Accuracy Results**
 
-<img width="1768" height="1102" alt="image" src="https://github.com/user-attachments/assets/c9ec2130-c6ff-4128-9482-0cb452806f30" />
+| Dataset | Dataset Feature Phrase | Baseline Acc | Best L1 (Δ vs Baseline, pp) | Best L2 (Δ vs Baseline, pp) | Best Method (Overall) | Evaluation |
+|---|---|---:|---|---|---|---|
+| MNIST | Simple structure | 0.9894 | Geom-Combined (+0.25) | MixUp (+0.26) | MixUp (L2) | L2 Best (Limited Improvement) |
+| Fashion-MNIST | Ambiguous class boundaries | 0.9118 | Translation (+0.21) | CutMix (+0.79) | CutMix (L2) | L2 Best |
+| CIFAR-10 | Position variability in natural scenes | 0.6940 | Translation (+4.22) | MixUp (+1.88) | Translation (L1) | L1 Best (L2 Strong Improvement) |
+| SVHN | Structure-sensitive labels | 0.8969 | Translation (+2.82) | CutMix (+1.16) | Translation (L1) | L1 Best (L2 Strong Improvement) |
+| STL-10 | Objects with varying positions, orientations, and scales | 0.6215 | Translation (+6.66) | RandAugment (+0.50) | Translation (L1) | L1 Best (L2 Limited Improvement) |
 
-- No Processing: 0.964
-- Rotation: 0.953 (−1.1%)
-- Translation: 0.942 (−2.2%)
-- Scaling: 0.964 (≈ 0%)
-- Noise: 0.965 (+0.1%)
-- Blur: 0.954 (−1.0%)
 
-**Average ΔAcc ≈ −0.4%**
 
-**Analysis**
-- MNIST consists of clean, centred grayscale digit images with limited real-world variation.
-- Most OpenCV enrichments introduce distortions that do not reflect genuine digit variability, particularly geometric transformations that break digit alignment.
-**Conclusion****Conclusion*
-  
-OpenCV-based enrichment is poorly suited to MNIST, providing no consistent performance improvement.
+```python
 
-### **fashionMNIST**
-
-**Test Accuracy Results**
-
-<img width="1284" height="946" alt="image" src="https://github.com/user-attachments/assets/8d4d771a-7640-4407-96fc-591fb332f63b" />
-
-- No Processing: 0.840
-- Rotation: 0.811 (−2.9%)
-- Translation: 0.788 (−5.2%)
-- Scaling: 0.831 (−0.9%)
-- Noise: 0.830 (−1.0%)
-- Blur: 0.824 (−1.6%)
-
-**Average ΔAcc ≈ −0.6% - −1.0%**
-
-**Analysis**
-
-- FashionMNIST images rely on global shape features for classification.
-- Geometric distortions often remove discriminative cues rather than enriching variability.
-
-**Conclusion**
-
-FashionMNIST shows low suitability for OpenCV enrichment, with most methods degrading performance.
-
-### **CIFAR-10**
-
-**Test Accuracy Results**
-
-<img width="1822" height="1092" alt="image" src="https://github.com/user-attachments/assets/228da380-1bf4-404e-bc2f-12192a1206a8" />
-
-- No Processing: 0.372
-- Rotation: 0.380 (+0.8%)
-- Translation: 0.335 (−3.7%)
-- Scaling: 0.376 (+0.4%)
-- Noise: 0.100 (−27.0%)
-- Blur: 0.372 (≈ 0%)
-
-**Average ΔAcc ≈ +0.2%**
-
-**Analysis**
-
-- CIFAR-10 contains natural RGB images where augmentation is theoretically beneficial.
-- However, the SimpleRNN model lacks spatial inductive bias, limiting its ability to exploit spatial transformations.
-
-**Conclusion**
-
-CIFAR-10 demonstrates moderate enrichment suitability, constrained primarily by model architecture.
-
-### **SVHN**
-
-**Test Accuracy Results**
-
-<img width="1478" height="948" alt="image" src="https://github.com/user-attachments/assets/a564b110-8617-48dc-bf18-2a385e53dc66" />
-
-- No Processing: 0.694
-- Rotation: 0.676 (−1.8%)
-- Translation: 0.677 (−1.7%)
-- Scaling: 0.661 (−3.3%)
-- Noise: 0.698 (+0.4%)
-- Blur: 0.701 (+0.7%)
-  
-**Average ΔAcc ≈ +0.5%**
-
-**Analysis**
-
-- SVHN images originate from real-world street scenes and naturally contain noise and blur.
-- Enrichment that mirror these conditions improve robustness, while geometric transformations distort digit structure.
-
-**Conclusion**
-
-SVHN exhibits high suitability for selective OpenCV augmentation, particularly noise and blur.
-
-### **STL-10**
-
-**Test Accuracy Results**
-
-<img width="1434" height="946" alt="image" src="https://github.com/user-attachments/assets/4e11f44b-70c5-4461-8706-093ebd75117d" />
-
-- No Processing: 0.151
-- Rotation: 0.175 (+2.4%)
-- Translation: 0.170 (+1.9%)
-- Scaling: 0.205 (+5.4%)
-- Noise: 0.143 (−0.8%)
-- Blur: 0.180 (+2.9%)
-  
-**Average ΔAcc ≈ +1.5% - +2.0%**
-
-**Analysis**
-- STL-10 contains high-resolution natural images with limited labelled data.
-- Enrichment effectively increases training diversity and reduces overfitting, especially through scaling and blur.
-
-**Conclusion**
-
-STL-10 shows moderate to high augmentation suitability, despite overall accuracy being constrained by model capacity.
-
-### **Cross-Dataset Enrichment Suitability Summary**
-
-| **Dataset** | **Baseline Accuracy (No Processing)** | **Best Augmentation Method** | **Best Accuracy** | **Average ΔAcc (%)** | **Overall Suitability** |
-|------------|---------------------------------------|------------------------------|-------------------|----------------------|-------------------------|
-| **MNIST** | 0.964 | Noise | 0.965 | −0.4% | Very Low |
-| **FashionMNIST** | 0.840 | Scaling | 0.831 | −0.6% | Low |
-| **CIFAR-10** | 0.372 | Rotation | 0.380 | +0.2% | Moderate |
-| **SVHN** | 0.694 | Blur | 0.701 | +0.5% | High (Selective) |
-| **STL-10** | 0.151 | Scaling | 0.205 | +1.5% | Moderate–High |
-
-### **Overall Discussion**
-
-- **Dataset complexity strongly influences augmentation effectiveness**
-- **Augmentations must reflect realistic data variations**
-- **Model architecture limits achievable gains**
-- **Selective augmentation is superior to blanket application**
+```
