@@ -56,7 +56,7 @@ An overview:
 - The overall best-performing dataset across all 5 pre-processing methods is MNIST, while the dataset with the lowest accuracies across all methods is STL-10.
 - Fashion-MNIST also performed decently.
 - CIFAR-10 had relatively low performance, while the performances of the methods fluctuated significantly when it came to SVHN.
-- Looking into why this may have been the case, it appears that all pre-processing methods seem to work better on the MNIST-related datasets due to their relative simplicity (hgrayscale, smaller size, etc.)
+- Looking into why this may have been the case, it appears that all pre-processing methods seem to work better on the MNIST-related datasets due to their relative simplicity (grayscale, smaller size, etc.)
 - Fashion-MNIST performed slightly worse than regular MNIST since images of clothing include folds, textures, and ambiguous edges that could affect the pre-processing.
 - The scaling methods seem to generalise a bit better than distribution-based methods (QuantileTransform, PCA).
 - Notably, QuantileTransform was frequently among the poorer performers (QuantileTransform seems to exaggerate background noise).
